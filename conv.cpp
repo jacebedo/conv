@@ -1,14 +1,20 @@
 #include <stdlib.h>
 #include <string>
+#include <vector>
 #include <iostream>
 #include <sqlite3.h>
 
-
 using namespace std;
 
+static int callback(void * redacted,int colsFound, char** query_res , char** names) {
+  for (int i = 0; i < colsFound; i++) {
+    if (names[i] == NULL || query_res[i] == NULL) {cout << "LUL WRONG"; return 0;}
+    cout << names[i] << " = " << query_res[i] << endl;
+  }
+  return 0;
+}
 
 int main(int argc,char *argv[]) {
-
   sqlite3 * db;
   string src = "";
   string dst = "";
@@ -36,16 +42,12 @@ int main(int argc,char *argv[]) {
 
     src = argv[1];
     dst = argv[2];
-    qty = strtof(argv[3],NULL);
-    // To do: Implement test cases, and test program for edge cases.
+    qty = strtof(argv[3],NULL); /* FIX: errors when argv[3] == NULL */
 
-
-    /* Testing */
-    // cout << "src: " << src << "\n";
-    // cout << "dst: " << dst << "\n";
-    // cout << "qty: " << qty << "\n";
-
-
+    //to do: parse arguments to make proper statements
+    string STATEMENT = "SELECT qty FROM weight WHERE srcunit='lb' AND dstunit='oz'";
+    char * test = 0;
+    int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,NULL,&test);
 
   }
 
