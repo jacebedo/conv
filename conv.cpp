@@ -49,11 +49,11 @@ int main(int argc,char *argv[]) {
 
 
     //to do: parse arguments to make proper statement
-    string STATEMENT = "SELECT qty FROM weight WHERE srcunit='lb' AND dstunit='oz'";
+    string STATEMENT = "SELECT qty FROM conversions WHERE srcunit='" + src + "' AND dstunit='" + dst + "'";
     char * query_err_msg;
     float convratio = 0.0;
     int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,&convratio,&query_err_msg);
-
+    
     float result = qty * convratio;
     cout << qty << src << " = " << result << dst << "." << endl;
 
