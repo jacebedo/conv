@@ -16,4 +16,9 @@ void output_help_doc(){
   exit(0);
 }
 
-bool check_valid_input(string srcunit,string dstunit,float qty);
+bool check_valid_input(string inputA,string inputB,float qty){
+
+  //Test empty inputs
+  if ( inputA == "" || inputB == "" || qty == 0.0 ) {return false;}
+  return true;
+}

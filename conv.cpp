@@ -26,20 +26,18 @@ int main(int argc,char *argv[]) {
   if (error_status) cout << "ERROR: database connection failed\n";
 
   /* Check if command-line input syntax is valid. ("./conv help || ./conv src dst qty") */
-  if (argc <= 1 || argc >= 5) { output_err_msg(); }
+  if (argc <= 1 || argc >= 5)  output_err_msg();
   else {
     //Main workflow
 
-    for (int i = 0; i < argc;i++) {
-      if (string(argv[i]) == "help") { output_help_doc(); }
-    }
-    src = argv[1];
-    dst = argv[2];
+    if (string(argv[1]) == "help" || string(argv[2]) == "help") output_help_doc();
+
+    src = string(argv[1]);
+    dst = string(argv[2]);
     if (argv[3] == NULL) { cout << "please enter a quantity: "; cin >> qty; }
     else {qty = strtof(argv[3],NULL);}
 
-    // To do: Implement test case where srcunit and dstunit are not in the database.
-
+    if (!check_valid_input(src,dst,qty)) {output_err_msg();}
 
     string STATEMENT = "SELECT qty FROM conversions WHERE srcunit='" + src + "' AND dstunit='" + dst + "'";
     char * query_err_msg;
