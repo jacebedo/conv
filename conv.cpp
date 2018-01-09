@@ -54,7 +54,8 @@ int main(int argc,char *argv[]) {
     float convratio = 0.0;
     int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,&convratio,&query_err_msg);
 
-
+    float result = qty * convratio;
+    cout << qty << src << " = " << result << dst << "." << endl;
 
   return 0;
 
