@@ -42,7 +42,9 @@ int main(int argc,char *argv[]) {
 
     src = argv[1];
     dst = argv[2];
-    qty = strtof(argv[3],NULL); /* FIX: errors when argv[3] == NULL */
+    if (argv[3] == NULL) { cout << "please enter a quantity: "; cin >> qty; }
+    else {qty = strtof(argv[3],NULL);}
+
 
     //to do: parse arguments to make proper statements
     string STATEMENT = "SELECT qty FROM weight WHERE srcunit='lb' AND dstunit='oz'";
