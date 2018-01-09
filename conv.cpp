@@ -26,19 +26,12 @@ int main(int argc,char *argv[]) {
   if (error_status) cout << "ERROR: database connection failed\n";
 
   /* Check if command-line input syntax is valid. ("./conv help || ./conv src dst qty") */
-  if (argc <= 1 || argc >= 5) {
-    cout << "please enter the correct syntax or use './conv help' for proper use." << "\n";
-    exit(0);
-  }
+  if (argc <= 1 || argc >= 5) { output_err_msg(); }
   else {
     //Main workflow
 
     for (int i = 0; i < argc;i++) {
-      if (string(argv[i]) == "help") {
-        /*print out help documentation */
-        cout << "help documentation placeholder \n";
-        return 0;
-      }
+      if (string(argv[i]) == "help") { output_help_doc(); }
     }
     src = argv[1];
     dst = argv[2];
