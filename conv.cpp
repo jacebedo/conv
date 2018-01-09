@@ -6,11 +6,13 @@
 
 using namespace std;
 
-static int callback(void * redacted,int colsFound, char** query_res , char** names) {
-  for (int i = 0; i < colsFound; i++) {
-    if (names[i] == NULL || query_res[i] == NULL) {cout << "LUL WRONG"; return 0;}
-    cout << names[i] << " = " << query_res[i] << endl;
+static int callback(void * retval,int colsFound, char** ret_text , char** names) {
+
+  for (int i = 0;i < colsFound;i++) {
+      *(float *)retval = strtof(ret_text[i],NULL);
   }
+
+
   return 0;
 }
 
@@ -39,23 +41,24 @@ int main(int argc,char *argv[]) {
         return 0;
       }
     }
-
     src = argv[1];
     dst = argv[2];
     if (argv[3] == NULL) { cout << "please enter a quantity: "; cin >> qty; }
     else {qty = strtof(argv[3],NULL);}
 
 
-    //to do: parse arguments to make proper statements
-    string STATEMENT = "SELECT qty FROM weight WHERE srcunit='lb' AND dstunit='oz'";
-    char * test = 0;
-    int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,NULL,&test);
 
-  }
+    //to do: parse arguments to make proper statement
+    string STATEMENT = "SELECT qty FROM weight WHERE srcunit='lb' AND dstunit='oz'";
+    char * query_err_msg;
+    float convratio = 0.0;
+    int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,&convratio,&query_err_msg);
+
 
 
   return 0;
 
+  }
 }
 
 
