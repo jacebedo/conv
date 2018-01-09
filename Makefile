@@ -1,2 +1,2 @@
-conv: conv.cpp
-	g++ -o conv conv.cpp -lsqlite3
+conv: conv.cpp ./functions/functions.cpp
+	g++ -o conv conv.cpp ./functions/functions.cpp -lsqlite3

@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <sqlite3.h>
+#include "./functions/functions.h"
 
 using namespace std;
 
@@ -21,15 +22,13 @@ int main(int argc,char *argv[]) {
   string src = "";
   string dst = "";
   float qty = 0.0;
-  // sqlite database initialization
   int error_status = sqlite3_open("conversions.db",&db);
   if (error_status) cout << "ERROR: database connection failed\n";
 
-
-
+  /* Check if command-line input syntax is valid. ("./conv help || ./conv src dst qty") */
   if (argc <= 1 || argc >= 5) {
     cout << "please enter the correct syntax or use './conv help' for proper use." << "\n";
-    return 0;
+    exit(0);
   }
   else {
     //Main workflow
@@ -46,14 +45,14 @@ int main(int argc,char *argv[]) {
     if (argv[3] == NULL) { cout << "please enter a quantity: "; cin >> qty; }
     else {qty = strtof(argv[3],NULL);}
 
+    // To do: Implement test case where srcunit and dstunit are not in the database.
 
 
-    //to do: parse arguments to make proper statement
     string STATEMENT = "SELECT qty FROM conversions WHERE srcunit='" + src + "' AND dstunit='" + dst + "'";
     char * query_err_msg;
     float convratio = 0.0;
     int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,&convratio,&query_err_msg);
-    
+
     float result = qty * convratio;
     cout << qty << src << " = " << result << dst << "." << endl;
 
