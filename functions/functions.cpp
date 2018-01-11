@@ -2,11 +2,15 @@
 #include <string>
 #include <iostream>
 #include <regex>
+#include <sqlite3.h>
 #include <stdlib.h>
 using namespace std;
 
 
-
+static int callback(void * retval,int colsFound, char** ret_text , char** names) {
+  *(bool *)retval = true;
+  return 0;
+}
 
 void output_err_msg(){
   cout << "please enter the correct syntax or use './conv help' for proper use." << "\n";
@@ -18,19 +22,17 @@ void output_help_doc(){
   exit(0);
 }
 
-float fix_syntax(string intputA,string inputB){
-  regex notalpha("[^a-xA-z]+");
-  return 0;
-}
 
-
-
-
-bool check_valid_input(string inputA,string inputB,float qty){
+bool check_valid_input(string inputA,string inputB,float qty,sqlite3 * db){
 
   //Test empty inputs
-  if ( inputA == "" || inputB == "" || qty == 0.0 ) {return false;}
+  if ( inputA == "" || inputB == "" || qty == 0.0 ) return false;
+
+  //Test inputs not in database
+  string STATEMENT = "SELECT * FROM conversions WHERE srcunit='" + inputA + "' AND dstunit='" + inputB + "'";
+  char * query_err_msg;
+  bool valid = false;
+  int query_res = sqlite3_exec(db,STATEMENT.c_str(),callback,&valid,&query_err_msg);
+  if (!valid) return false;
   return true;
-
-
 }
