@@ -34,7 +34,7 @@ int main(int argc,char *argv[]) {
 
     src = string(argv[1]);
     dst = string(argv[2]);
-    if (argv[3] == NULL) { cout << "please enter a quantity: "; cin >> qty; }
+    if (argv[3] == NULL) { qty = fix_syntax(src,dst); }
     else {qty = strtof(argv[3],NULL);}
 
     if (!check_valid_input(src,dst,qty)) {output_err_msg();}

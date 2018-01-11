@@ -1,9 +1,11 @@
 #include "functions.h"
 #include <string>
 #include <iostream>
+#include <regex>
 #include <stdlib.h>
-
 using namespace std;
+
+
 
 
 void output_err_msg(){
@@ -16,9 +18,19 @@ void output_help_doc(){
   exit(0);
 }
 
+float fix_syntax(string intputA,string inputB){
+  regex notalpha("[^a-xA-z]+");
+  return 0;
+}
+
+
+
+
 bool check_valid_input(string inputA,string inputB,float qty){
 
   //Test empty inputs
   if ( inputA == "" || inputB == "" || qty == 0.0 ) {return false;}
   return true;
+
+
 }
