@@ -22,8 +22,19 @@ void output_help_doc(){
   exit(0);
 }
 
+void check_txt_input(int argc, char * argv[]){
+    if (argv[1] == NULL) output_err_msg();
+    else {
+      if (string(argv[1]) == "help") output_help_doc();
+      else{
+        if (argv[2] == NULL) output_err_msg();
+      }
+    }
 
-bool check_valid_input(string inputA,string inputB,float qty,sqlite3 * db){
+
+}
+
+bool check_db(string inputA,string inputB,float qty,sqlite3 * db){
 
   //Test empty inputs
   if ( inputA == "" || inputB == "" || qty == 0.0 ) return false;

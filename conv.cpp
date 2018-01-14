@@ -27,9 +27,7 @@ int main(int argc,char *argv[]) {
   if (argc <= 1 || argc >= 5)  output_err_msg();
   else {
     //Main workflow
-
-    if (string(argv[1]) == "help" || string(argv[2]) == "help") output_help_doc();
-
+    check_txt_input(argc,argv);
     src = string(argv[1]);
     dst = string(argv[2]);
     if (argv[3] == NULL) {
@@ -38,7 +36,8 @@ int main(int argc,char *argv[]) {
     }
     else qty = strtof(argv[3],NULL);
 
-    if (!check_valid_input(src,dst,qty,db)) {output_err_msg();}
+
+    if (!check_db(src,dst,qty,db)) {output_err_msg();}
 
     string STATEMENT = "SELECT qty FROM conversions WHERE srcunit='" + src + "' AND dstunit='" + dst + "'";
     char * query_err_msg;
