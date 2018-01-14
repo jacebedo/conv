@@ -18,7 +18,15 @@ void output_err_msg(){
 }
 
 void output_help_doc(){
-  cout << "Help documentation placeholder" << endl;
+  cout << "Welcome to conv!" << endl;
+  cout << "To make a conversion, enter the following command:  ./conv <src> <dst> <qty>," << endl;
+  cout << "Where <src> is the current unit you have, <dst> is your desired unit of measurement, and <qty> is the amount you would like to convert" << endl;
+  cout << "You may choose from these units" << endl;
+  cout << "Length:" << endl << "nanometres (nm)"<< endl << "micrometres (um)"<< endl << "millimetres (mm)"<< endl << "centimetres (cm)"<< endl << "metres (m)" << endl << "kilometres (km)"<< endl << "inches (in)";
+  cout << endl << "feet (ft)"<< endl << "yard (yd)" << endl << "mile (mi)" << endl << endl;
+
+  cout << "Weight:" << endl << "milligrams (mg)"<< endl << "grams (g)"<< endl << "kilograms (kg)"<< endl << "metric tons (t) "<< endl << "short tonnes (tsht)" << endl << "long tonnes (tlng)"<< endl << "pounds (lb)" << endl << "ounce (oz)" << endl;
+
   exit(0);
 }
 

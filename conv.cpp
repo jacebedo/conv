@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <sqlite3.h>
 #include "./functions/functions.h"
 
