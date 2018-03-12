@@ -1,15 +1,22 @@
 #include "functions.h"
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <regex>
 #include <sqlite3.h>
 #include <stdlib.h>
 using namespace std;
 
 
+ifstream * local_fs;
+
 static int callback(void * retval,int colsFound, char** ret_text , char** names) {
   *(bool *)retval = true;
   return 0;
+}
+
+void pass_filestream(ifstream * src){
+  local_fs = src;
 }
 
 void output_err_msg(){
@@ -18,14 +25,10 @@ void output_err_msg(){
 }
 
 void output_help_doc(){
-  cout << "Welcome to conv!" << endl;
-  cout << "To make a conversion, enter the following command:  ./conv <src> <dst> <qty>," << endl;
-  cout << "Where <src> is the current unit you have, <dst> is your desired unit of measurement, and <qty> is the amount you would like to convert" << endl;
-  cout << "You may choose from these units" << endl;
-  cout << "Length:" << endl << "nanometres (nm)"<< endl << "micrometres (um)"<< endl << "millimetres (mm)"<< endl << "centimetres (cm)"<< endl << "metres (m)" << endl << "kilometres (km)"<< endl << "inches (in)";
-  cout << endl << "feet (ft)"<< endl << "yard (yd)" << endl << "mile (mi)" << endl << endl;
-
-  cout << "Weight:" << endl << "milligrams (mg)"<< endl << "grams (g)"<< endl << "kilograms (kg)"<< endl << "metric tons (t) "<< endl << "short tonnes (tsht)" << endl << "long tonnes (tlng)"<< endl << "pounds (lb)" << endl << "ounce (oz)" << endl;
+  string currentline;
+  while (getline(*local_fs,currentline)){
+    cout << currentline << "\n";
+  }
 
   exit(0);
 }

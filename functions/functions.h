@@ -1,10 +1,10 @@
 #include <string>
+#include <fstream>
 #include <sqlite3.h>
-
 using namespace std;
 
 
-
+void pass_filestream(ifstream * src);
 void output_err_msg();    //Outputs 'incorrect syntax' message to user
 void output_help_doc();   //Outputs help documentation to user.
 

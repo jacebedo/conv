@@ -2,10 +2,14 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <sqlite3.h>
 #include "./functions/functions.h"
 
 using namespace std;
+
+/* Variable Declarations */
+ifstream fs;
 
 static int callback(void * retval,int colsFound, char** ret_text , char** names) {
 
@@ -15,11 +19,14 @@ static int callback(void * retval,int colsFound, char** ret_text , char** names)
   return 0;
 }
 
+
 int main(int argc,char *argv[]) {
   sqlite3 * db;
   string src = "";
   string dst = "";
   float qty = 0.0;
+  fs.open("readme.txt");
+  if (fs.is_open()) { pass_filestream(&fs); }
   int error_status = sqlite3_open("conversions.db",&db);
   if (error_status) cout << "ERROR: database connection failed\n";
 
@@ -47,6 +54,7 @@ int main(int argc,char *argv[]) {
     float result = qty * convratio;
     cout << qty << src << " = " << result << dst << "." << endl;
 
+  fs.close();
   return 0;
 
   }
